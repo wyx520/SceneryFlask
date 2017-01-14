@@ -45,6 +45,8 @@ class user(UserMixin):
 def load_user(user_id):
     mgdb = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     myuser = user()
+    myuser.name=mgdb["name"]
+    myuser.questionnaire=mgdb["questionnaire"]
     myuser.dirModel = mgdb
     return myuser
 

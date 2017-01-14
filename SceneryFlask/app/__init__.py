@@ -7,23 +7,20 @@ from flask_login import LoginManager
 from flask.ext.pymongo import PyMongo
 from flask_wtf.csrf import CsrfProtect
 from werkzeug.contrib.cache import SimpleCache
+from flask.ext.mail import Mail
 
 
 #实例化引用的类
 # 页面样式
 bootstrap = Bootstrap()
 # 芒果数据库
-
-# 缓存
-# cache = Cache()
-# 文本页面展示
-# pagedown = PageDown()
+mongo = PyMongo()
 # 邮箱
-# mail = Mail()
+mail = Mail()
 # 全球化
 # babel = Babel()
 csrf = CsrfProtect()
-mongo = PyMongo()
+
 #session
 # 缓存
 cache = SimpleCache()
@@ -45,7 +42,7 @@ def create_app(config_name='default'):
     # cache.init_app(app)
     mongo.init_app(app)
     login_manager.init_app(app)
-    # mail.init_app(app)
+    mail.init_app(app)
     # babel.init_app(app)
     # csrf.init_app(app)
 

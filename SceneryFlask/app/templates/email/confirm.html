@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<p>您好 {{user.name}},给你发来一个表单！</p>
+<p>请您完成。</p>
+<table>
+    <tr valign="top">
+        <td>接下来您可以点击链接进行表单回复：</td>
+        <td>
+            <a href="{{url_for('home.index',token=token,_external=True)}}">点击进入</a><br />
+        </td>
+    </tr>
+</table>
+<p>致敬</p>
+<p> <code>大周边</code>表单回收</p>
+<p>小贴士，对此邮件进行回复，我将不对其进行回复哦  @ 。@~~~~</p>

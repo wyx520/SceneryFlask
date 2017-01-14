@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>调查问卷模板</title>
+    <script src="//cdn.bootcss.com/vue/2.1.8/vue.js"></script>
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+      <div>
+<select v-model="selected">
+  <option v-for="option in options" v-bind:value="option.value">
+    {{ option.text }}
+  </option>
+</select>
+          <input type="button" value="添加问题" @click="AddQuestion"/>
+      </div>
+    <div v-for="question in questions"><questionmodules :model.sync="question"></questionmodules></div>
+    <div><input type="button" value="保存" @click="save"/></div>
+</div>
+
+</body>
+<script>
+    function guid() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            }
+
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                s4() + '-' + s4() + s4() + s4();
+        }
+     Vue.component("questionmodules",
+        {
+            template: [' <li class="li1"> ',
+                //'{% raw %}',
+                '             <div>',
+                '                  <span>{{model.questionId}}</span>',
+                '                  <p><input type="text" class ="" style="" placeholder="请填写问题标题" data-name="标题名称" v-model="model.questionTitle"></p>',
+                '<input type="button" value="添加问题选项" @click="AddSelect"/>',
+                '                  <div>',
+                '                       <ul>',
+                '                           <li v-for="answer in model.questionItem">',
+                '<span v-if="model.type==0">',
+                '<span>{{answer.itemNo}}</span>',
+                '<input type="text" class ="" style="" placeholder="请填写选项内容" data-name="选项内容" v-model="answer.content">',
+                '<input type="button" value="添加问题选项" @click="AddSelect"/>',
+                '<input type="button" value="删除问题选项" @click="DeleSelect(answer.itemNo,answer.selectyId)"/>',
+                '</span>',
+                '                          </li>',
+                '                       </ul>',
+                '                 </div>',
+                '             </div>',
+                '<div><input type="button" value="添加问题" @click="AddQuestion"/></div>',
+                 //'{% endraw %}',
+                '         </li>'
+
+            ].join(""),
+            props: ["model"],
+            data: function () {
+                return{}
+            },
+            computed:{
+
+            },
+            methods:{
+                AddSelect:function(){
+                    var that=this;
+                    var index=that.model.questionItem.length+1||0;
+                    var item=that.GetSelect(index);
+                    that.model.questionItem.splice(index, 0, item);
+
+                },
+                DeleSelect:function(index,selectyId){
+                    index=index-1;
+                    var that = this;
+                    that.model.questionItem=that.model.questionItem.filter(function (item){
+                        return item.selectyId!==selectyId;
+                    });
+                    //delete that.model.questionItem[index];
+
+                },
+                GetSelect:function(index){
+                     return{
+                      itemNo: index, //问题选项
+                      content: "", //内容
+                      orderNum: index ,//排序
+                         selectyId:guid()
+                    }
+
+                },
+                AddQuestion:function(){
+                    this.$parent.AddQuestion();
+
+                }
+
+            },
+            events: {},
+            ready: function () {
+
+
+            }
+
+        });
+    var vm=new Vue({
+        el:"#app",
+        data:{
+              questionSettingId: "1",//问卷模板ID
+              questionSettingName: "",//问卷名称
+              questionSettingNote: "",//问卷描述
+              questions: [
+                {
+                  questionId: "1", //题目
+                  type: 0, //0-单选，1-多选，2-文本框，3-下拉框
+                  isRequired: true, //是否必选
+                  isHavingOther: true, //是否包含其他选项
+                  questionTitle: "123", //问题名称
+                  orderNum: 1, //排序
+                  chooseValue: "", //选择的答案
+                  chooseOtherValue: "", //其他选项的值
+                  checkedNames: [ ], //多选题的选择答案
+                  objId: "1",
+                  questionItem: [
+                    {
+                        selectyId:"",
+                      itemNo: "1", //问题选项
+                      content: "1111", //内容
+                      orderNum: 1, //排序
+                    }
+                  ] //每一题的选项
+                },
+                   {
+                  questionId: "1", //题目
+                  type: 0, //0-单选，1-多选，2-文本框，3-下拉框
+                  isRequired: true, //是否必选
+                  isHavingOther: true, //是否包含其他选项
+                  questionTitle: "", //问题名称
+                  orderNum: 1, //排序
+                  chooseValue: "", //选择的答案
+                  chooseOtherValue: "", //其他选项的值
+                  checkedNames: [ ], //多选题的选择答案
+                  objId: "2",
+                  questionItem: [
+                    {
+                        selectyId:"",
+                      itemNo: "1", //问题选项
+                      content: "1111", //内容
+                      orderNum: 1 //排序
+                    }
+                  ] //每一题的选项
+                }
+              ],
+              addName: "",//创建人姓名
+              addTime: "",//创建时间
+              selected:"",
+              options:[
+                {text:'请选择问题类型',value:''},
+                {text:'单选题',value:'0'},
+                {text:'多选题',value:'1'},
+                {text:'文本框',value:'2'},
+                {text:'下拉框',value:'3'}
+
+            ],
+        },
+        computed:{},
+        methods:{
+            AddQuestion:function(){
+                var that=this;
+                if(that.selected==""){
+                    alert("蓝瘦~~请选择问题类型后再进行添加");
+                    return;
+                }
+                var index=that.questions.length+1||0;
+                var type=that.selected;
+                var item=that.GetQuestionIvfo(type,index);
+                that.questions.splice(index, 0, item);
+
+            },
+            GetQuestionIvfo:function(type,index){
+                return{
+                      questionId: index, //题目
+                      type: type, //0-单选，1-多选，2-文本框，3-下拉框
+                      isRequired: true, //是否必选
+                      isHavingOther: true, //是否包含其他选项
+                      questionTitle: "123", //问题名称
+                      orderNum: index, //排序
+                      chooseValue: "", //选择的答案
+                      chooseOtherValue: "", //其他选项的值
+                      checkedNames: [ ], //多选题的选择答案
+                      objId: guid(),
+                      questionItem: [
+                        {
+                        }
+                      ] //每一题的选项
+
+                }
+            },
+            checkQuestion:function(){
+                 var that = this;
+                    this.validationErrors = [];
+                    if(that.questionSettingName=="")
+                    {
+                        this.validationErrors.push("请填写此问卷调查模板的名称");
+
+                    }
+                    if(that.questionSettingNote=="")
+                    {
+                        this.validationErrors.push("请填写此问卷调查模板的描述");
+
+                    }
+                     $.each(this.questions, function(n, value) {
+                         var str=value;
+                         //if()
+
+                     });
+
+            },
+            save:function(){
+                //验证问题模板
+this.checkQuestion();
+                }
+        },
+        ready: function (){
+            this.$data=json;
+
+        },
+         events: {},
+         watch: {}
+    });
+</script>
+</html>

@@ -11,11 +11,9 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or '\x03d\xf4\x95J\x15\xa4B\xfb\xc0\xaf \xd1A[j$}\x18\x16a\xe7\xd0\xec'
     # 缓存
     CACHE_TYPE = 'simple'
-
-
-    MONGO_HOST ='10.101.44.137'
-    MONGO_PORT=27017
-    MONGO_DBNAME='app'
+    MONGO_HOST = '10.101.44.137'
+    MONGO_PORT = 27017
+    MONGO_DBNAME = 'app'
 
 
 @staticmethod

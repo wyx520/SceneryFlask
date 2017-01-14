@@ -2,4 +2,4 @@ from flask import Blueprint
 
 models = Blueprint('models', __name__)
 
-import user
+import emails,user
