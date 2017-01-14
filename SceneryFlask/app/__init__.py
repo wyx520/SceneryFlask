@@ -13,7 +13,7 @@ from werkzeug.contrib.cache import SimpleCache
 # 页面样式
 bootstrap = Bootstrap()
 # 芒果数据库
-mongo = PyMongo()
+
 # 缓存
 # cache = Cache()
 # 文本页面展示
@@ -23,6 +23,7 @@ mongo = PyMongo()
 # 全球化
 # babel = Babel()
 csrf = CsrfProtect()
+mongo = PyMongo()
 #session
 # 缓存
 cache = SimpleCache()

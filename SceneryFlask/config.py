@@ -2,6 +2,8 @@
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+
 class Config:
     # 全球化注释中文
     BABEL_DEFAULT_LOCALE = 'zh'
@@ -11,9 +13,15 @@ class Config:
     CACHE_TYPE = 'simple'
 
 
+    MONGO_HOST ='10.101.44.137'
+    MONGO_PORT=27017
+    MONGO_DBNAME='app'
+
+
 @staticmethod
 def init_app(app):
     pass
+
 
 # 开发模式
 class DevelopmentConfig(Config):
@@ -37,6 +45,7 @@ class DevelopmentConfig(Config):
     FLASK_MAIL_SENDER = 'bianyouqing@163.com'
     # SSL_DISABLE =False
 
+
 # 生产模式
 class Production(Config):
     MAIL_SERVER = 'smtp.163.com'
@@ -48,6 +57,7 @@ class Production(Config):
     FLASK_MAIL_SUBJECT_PREFIX = u'激活账号'
     FLASK_MAIL_SENDER = 'bianyouqing@163.com'
     SSL_DISABLE = True
+
 
 config = {
     'development': DevelopmentConfig,
