@@ -1,0 +1,22 @@
+{% extends 'bootstrap/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'includes/_navbar.html' %}
+{% endblock %}
+{% block content %}
+    {% block flash %}
+    {% endblock %}
+    {% block page_body %}
+    {% endblock %}
+    <footer class="text-center">
+        <hr>
+        {% block footer %}
+            Copyright 2017 by <a href="#"> <i class="fa fa-maxcdn fa-3x">Scenery</i></a>
+        {% endblock %}
+    </footer>
+{% endblock %}

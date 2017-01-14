@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html'as wtf %}
+{% block content %}
+    {% block flash %}
+        {% include 'includes/_flash.html' %}
+    {% endblock %}
+    <div class="text-info">
+        {{ wtf.quick_form(form) }}
+        <div class="top-right"><p><a href="{{ url_for('auth.register') }}">注册</a></p></div>
+    </div>
+{% endblock %}
