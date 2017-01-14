@@ -8,17 +8,16 @@ from flask.ext.login import login_required, login_user, current_user, logout_use
 from flask import json
 
 
-@home.route('/',  methods=['GET', 'POST'])
+@home.route('/', methods=['GET', 'POST'])
 def index():
     loginforms = LoginFrom()
     regforms = RegistrationForm()
-    return render_template('index.html',title = u"大周边")
+    return render_template('index.html', title=u"大周边")
+
 
 @home.errorhandler(404)
 def page_not_found(e):
-    return render_template('error/404.html',404)
-
-
+    return render_template('error/404.html', 404)
 
 
 # 账号激活
@@ -26,4 +25,8 @@ def page_not_found(e):
 
 # 重新发邮件
 
-
+# 问卷列表页面
+@home.route('/wenjuanlist', methods=['GET', 'POST'])
+def getwenjuanList():
+    #@login_required
+    return render_template('QuestionnaireList.html', title="我的模板列表")

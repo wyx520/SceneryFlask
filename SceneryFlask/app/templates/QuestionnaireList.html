@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if current_user is not null %}
+<div>
+    {%  for item in current_user%}
+
+</div>
+{% endif %}
+{% endblock %}

@@ -39,7 +39,7 @@ def login():
             "password": form.password.data
         }
         tmp = mongo.db.users.find_one({"name": dir["name"]})
-        if tmp is not None and tmp["password"]==dir["password"]:
+        if tmp is not None and tmp["password"] == dir["password"]:
             flash(u"欢迎 ")
             flash(u"登陆成功")
             # 保存登陆地址和id
@@ -49,6 +49,7 @@ def login():
             tipsuccess = 0
     return render_template('login.html', title=u"大周边",
                            form=form, )
+
 
 
 
