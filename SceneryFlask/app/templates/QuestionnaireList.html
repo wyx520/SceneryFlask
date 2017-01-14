@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if current_user is not null %}
-<div>
-    {%  for item in current_user%}
-
-</div>
-{% endif %}
+    <li>{{ id }}+{{ name }}</li>
+    {% if current_user.questionnaire %}
+        <div>
+            {% for item in current_user.questionnaire%}
+                <li>{{ item.name }}</li>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

@@ -46,11 +46,11 @@ def login():
             # 保存登陆地址和id
             return redirect(url_for('home.index'))
         else:
-            flash(u"账号密码错误�亲。你在核对一下吧!")
-    return render_template('login.html', title=u"大周�,
-                           form=form, )
+            flash(u"账号密码错误�亲。你在核对一下吧!")
+    return render_template('login.html', title=u"大周",
+                           form=form )
 
-# 请求前验�
+# 请求前验�
 @auth.before_app_request
 def before_request():
     if current_user.is_authenticated \
